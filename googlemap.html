@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Simple Map</title>
+    <style>
+        #map {
+            height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAolA34wmFQsfRRAulAnwdwNWDLOvDdRnw&callback=initMap&libraries=&v=weekly"
+        async></script>
+
+    <script>
+        // The following example creates complex markers to indicate beaches near
+        // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
+        // to the base of the flagpole.
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 13,
+                center: { lat: 27.7172, lng:85.3240 },
+            });
+            setMarkers(map);
+        }
+        // Data for the markers consisting of a name, a LatLng and a zIndex for the
+        // order in which these markers should display on top of each other.
+        const beaches = [
+            ["Bondi Beach", -33.890542, 151.274856],
+            ["Coogee Beach", -33.923036, 151.259052],
+            ["Cronulla Beach", -34.028249, 151.157507],
+            ["Manly Beach", -33.80010128657071, 151.28747820854187],
+            ["Maroubra Beach", -33.950198, 151.259302],
+        ];
+
+        function setMarkers(map) {
+            for (let i = 0; i < beaches.length; i++) {
+                const beach = beaches[i];
+                new google.maps.Marker({
+                    position: { lat: beach[1], lng: beach[2] },
+                    map,
+                    title: beach[0],
+
+                });
+            }
+        }
+        // function codeAddress(place) {
+        //     var address = place;
+        //     geocoder.geocode({ 'address': address }, function (results, status) {
+        //         if (status == 'OK') {
+        //             map.setCenter(results[0].geometry.location);
+        //             var marker = new google.maps.Marker({
+        //                 map: map,
+        //                 position: results[0].geometry.location
+        //             });
+        //         } else {
+        //             alert('Geocode was not successful for the following reason: ' + status);
+        //         }
+        //     });
+        // }
+    </script>
+</body>
+
+</html>
